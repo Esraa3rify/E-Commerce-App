@@ -10,7 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ECommerce">
         <activity
-            android:name=".loginactivity"
+            android:name=".LoginActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".homeActivity2"
+            android:exported="true" />
+        <activity
+            android:name=".registerActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
