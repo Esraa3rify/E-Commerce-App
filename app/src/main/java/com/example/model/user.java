@@ -3,8 +3,8 @@ package com.example.model;
 //in this class we will get the phone number and pass and name
 
 public class user {
-
     private String name, Phone, passWord;
+
 
     public user(){
 
@@ -27,7 +27,9 @@ public class user {
     }
 
     public String getPhoneNum() {
+
         return Phone;
+
     }
 
     public void setPhoneNum(String phoneNum) {

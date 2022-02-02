@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/MICROSOFT/AndroidStudioProjects/eCommerce2/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2703125" />
         <entry key="..\:/Users/MICROSOFT/AndroidStudioProjects/eCommerce2/app/src/main/res/drawable/buttons.xml" value="0.2703125" />
+        <entry key="..\:/Users/MICROSOFT/AndroidStudioProjects/eCommerce2/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2703125" />
         <entry key="..\:/Users/MICROSOFT/AndroidStudioProjects/eCommerce2/app/src/main/res/drawable/inputdesign.xml" value="0.2703125" />
         <entry key="..\:/Users/MICROSOFT/AndroidStudioProjects/eCommerce2/app/src/main/res/layout/activity_home.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/MICROSOFT/AndroidStudioProjects/eCommerce2/app/src/main/res/layout/activity_home2.xml" value="0.24010416666666667" />
