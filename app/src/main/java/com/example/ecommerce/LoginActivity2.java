@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.model.User;
+import com.example.prevalent.prevalent;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -75,7 +77,15 @@ public class LoginActivity2 extends AppCompatActivity {
         }
 
     }
-  private void AllowAccessToAccount(String passWord,String Phone){
+  private void AllowAccessToAccount(final String passWord,final String Phone){
+
+        //knowing if thr remember me btn is checked or not.
+
+        if(checkBoxV.isChecked()){
+            //store the phone&pass into the android memory
+            Paper.book().write(prevalent.UserPhoneKey,Phone);
+            Paper.book().write(prevalent.UserPasswordKey,passWord);
+        }
 
       final DatabaseReference RootRef;
       RootRef= FirebaseDatabase.getInstance().getReference();
@@ -91,7 +101,13 @@ public class LoginActivity2 extends AppCompatActivity {
                       Toast.makeText(LoginActivity2.this, "Logged in successfully!", Toast.LENGTH_SHORT).show();
                       LoadingBar.dismiss();
 
+                      Intent intent= new Intent(LoginActivity2.this,homeActivity2.class);
+                      startActivity(intent);
 
+
+                  }else{
+                      LoadingBar.dismiss();
+                      Toast.makeText(LoginActivity2.this, "Password is incorrect!", Toast.LENGTH_SHORT).show();
                   }
 
 
