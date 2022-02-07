@@ -7,13 +7,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -21,8 +20,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.HashMap;
 
 public class registerActivity extends AppCompatActivity {
 
@@ -84,23 +81,25 @@ public class registerActivity extends AppCompatActivity {
 
     //if phone validate
 
-    private void ValidatePhoneNumber(final String name, final String pass, final String phone) {
+    private void ValidatePhoneNumber(final String name, final String passWord, final String Phone) {
+
+        //storing data
+
         final DatabaseReference RootRef;
         RootRef= FirebaseDatabase.getInstance().getReference();
-        RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        //read data
+        RootRef.child("users").child(Phone).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
+            //retrieve data
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 //if number is invalid
-                Log.d("Attention","esraa esraa");
 
-                if(!(snapshot.child("users").child(phone).exists())){
+                if(!(snapshot.exists())){
 
-                    HashMap<String, Object> userDataMap=new HashMap<>();
-                    userDataMap.put("Phone", phone);
-                    userDataMap.put("passWord", pass);
-                    userDataMap.put("name", name);
-                    RootRef.child("users").child(phone).updateChildren(userDataMap)
+
+                    RootRef.child("users").child(Phone).setValue(new User(name, Phone, passWord))
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
 
@@ -128,7 +127,7 @@ public class registerActivity extends AppCompatActivity {
 
                        //Number is valid
 
-                    Toast.makeText(registerActivity.this, "The" + phone + "Already Exists.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(registerActivity.this, "The" + Phone + "Already Exists.", Toast.LENGTH_SHORT).show();
                     LoadingBar.dismiss();
 
                     //undefined problem

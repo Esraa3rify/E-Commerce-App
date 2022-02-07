@@ -4,17 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.model.user;
-import com.example.prevalent.prevalent;
+import com.example.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +25,7 @@ public class LoginActivity2 extends AppCompatActivity {
       private   Button login;
        private EditText InputPhoneNumber,InputPassWord;
        private  ProgressDialog LoadingBar;
-       private String parentDBName ="users";
+       public String parentDBName ="users";
        private CheckBox checkBoxV;
 
     @Override
@@ -48,6 +45,7 @@ public class LoginActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 LoginUser();
+                
 
             }
         });
@@ -55,13 +53,14 @@ public class LoginActivity2 extends AppCompatActivity {
 
     private void LoginUser(){
 
-        String pass = InputPassWord.getText().toString();
-        String phone = InputPhoneNumber.getText().toString();
+        String passWord = InputPassWord.getText().toString();
+        String Phone = InputPhoneNumber.getText().toString();
 
 
-        if (TextUtils.isEmpty(pass)) {
+
+        if (TextUtils.isEmpty(passWord)) {
             Toast.makeText(this, "Please, Write Your Password...", Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.isEmpty(phone)) {
+        } else if (TextUtils.isEmpty(Phone)) {
             Toast.makeText(this, "Please, Write Your Phone Number...", Toast.LENGTH_SHORT).show();
         }
         else {
@@ -72,49 +71,47 @@ public class LoginActivity2 extends AppCompatActivity {
             LoadingBar.show();
 
 
-            AllowAccessToAccount(pass, phone);
+            AllowAccessToAccount(passWord, Phone);
         }
 
     }
-  private void AllowAccessToAccount(String pass,String phone){
+  private void AllowAccessToAccount(String passWord,String Phone){
 
       final DatabaseReference RootRef;
       RootRef= FirebaseDatabase.getInstance().getReference();
-      RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+      RootRef.child(parentDBName).child(Phone).addListenerForSingleValueEvent(new ValueEventListener() {
           @Override
           public void onDataChange(@NonNull DataSnapshot snapshot) {
-              if (snapshot.child(parentDBName).child(phone).exists()) {
-                  user userData = snapshot.child(parentDBName).child(phone).getValue(user.class);
+
+              if (snapshot.exists()) {
+                  User userData = snapshot.getValue(User.class);
+                  if (userData != null && userData.getPass().equals(passWord)) {
 
 
-                  if (userData.getPhoneNum().equals(phone)) {
-
-                      if (userData.getPass().equals(pass)) {
-
-
-                          Toast.makeText(LoginActivity2.this, "Logged in successfully!", Toast.LENGTH_SHORT).show();
-                          LoadingBar.dismiss();
+                      Toast.makeText(LoginActivity2.this, "Logged in successfully!", Toast.LENGTH_SHORT).show();
+                      LoadingBar.dismiss();
 
 
-                      }
                   }
 
 
-
-
-
               } else {
-                  Toast.makeText(LoginActivity2.this, "Account with this phone number " + phone + "is not valid", Toast.LENGTH_SHORT).show();
+                  Toast.makeText(LoginActivity2.this, "Account with this phone number " + Phone + "is not valid", Toast.LENGTH_SHORT).show();
                   LoadingBar.dismiss();
               }
-          }
 
+
+          }
 
           @Override
           public void onCancelled(@NonNull DatabaseError error) {
 
           }
+
       });
+      }
+
+
   }
 
-}
+
