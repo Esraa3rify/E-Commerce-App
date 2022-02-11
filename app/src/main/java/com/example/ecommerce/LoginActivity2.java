@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.model.User;
@@ -29,6 +30,8 @@ public class LoginActivity2 extends AppCompatActivity {
        private  ProgressDialog LoadingBar;
        public String parentDBName ="users";
        private CheckBox checkBoxV;
+       private TextView AdminLink, NotAdminLink;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,8 @@ public class LoginActivity2 extends AppCompatActivity {
         login=findViewById(R.id.secLoginBtn);
         InputPassWord=findViewById(R.id.loginPassNum);
         InputPhoneNumber=findViewById(R.id.loginPhoneNum);
+        AdminLink= findViewById(R.id.AdminBanel);
+        NotAdminLink= findViewById(R.id.NotAdminBanel);
         LoadingBar=new ProgressDialog(this);
 
         checkBoxV=findViewById(R.id.rememberMeCheck);
@@ -48,6 +53,28 @@ public class LoginActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 LoginUser();
                 
+
+            }
+        });
+
+        AdminLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                login.setText("Login Admin");
+                AdminLink.setVisibility(View.INVISIBLE);
+                NotAdminLink.setVisibility(View.VISIBLE);
+                parentDBName="Admins";
+
+            }
+        });
+
+        NotAdminLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                login.setText("Login");
+                AdminLink.setVisibility(View.VISIBLE);
+                NotAdminLink.setVisibility(View.INVISIBLE);
+                parentDBName="users";
 
             }
         });
@@ -89,7 +116,9 @@ public class LoginActivity2 extends AppCompatActivity {
 
       final DatabaseReference RootRef;
       RootRef= FirebaseDatabase.getInstance().getReference();
-      RootRef.child(parentDBName).child(Phone).addListenerForSingleValueEvent(new ValueEventListener() {
+      RootRef.child(parentDBName);
+      RootRef.child(Phone);
+      RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
           @Override
           public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -97,27 +126,39 @@ public class LoginActivity2 extends AppCompatActivity {
                   User userData = snapshot.getValue(User.class);
                   if (userData != null && userData.getPass().equals(passWord)) {
 
+                      if (parentDBName.equals("Admins")) {
+                          Toast.makeText(LoginActivity2.this, "Welcome Admin, you are logged in Successfully...", Toast.LENGTH_SHORT).show();
+                          LoadingBar.dismiss();
 
-                      Toast.makeText(LoginActivity2.this, "Logged in successfully!", Toast.LENGTH_SHORT).show();
-                      LoadingBar.dismiss();
+                          Intent intent = new Intent(LoginActivity2.this, AdminCategoryActivity.class);
+                          startActivity(intent);
 
-                      Intent intent= new Intent(LoginActivity2.this,homeActivity2.class);
-                      startActivity(intent);
+                      } else if (parentDBName.equals("users")) {
 
+                          Toast.makeText(LoginActivity2.this, "Logged in successfully!", Toast.LENGTH_SHORT).show();
+                          LoadingBar.dismiss();
 
-                  }else{
+                          Intent intent = new Intent(LoginActivity2.this, homeActivity2.class);
+                          prevalent.currentUserOnline = userData;
+                          startActivity(intent);
+                      }
+
+                 //ifpass
+                  } else {
                       LoadingBar.dismiss();
                       Toast.makeText(LoginActivity2.this, "Password is incorrect!", Toast.LENGTH_SHORT).show();
                   }
+                  }//ifsnapshot
+                  else
+                  {
+                      Toast.makeText(LoginActivity2.this, "Account with this phone number " + Phone + "is not valid", Toast.LENGTH_SHORT).show();
+                      LoadingBar.dismiss();
+                  }
 
 
-              } else {
-                  Toast.makeText(LoginActivity2.this, "Account with this phone number " + Phone + "is not valid", Toast.LENGTH_SHORT).show();
-                  LoadingBar.dismiss();
-              }
+      } //ondatachange
 
 
-          }
 
           @Override
           public void onCancelled(@NonNull DatabaseError error) {
@@ -125,9 +166,10 @@ public class LoginActivity2 extends AppCompatActivity {
           }
 
       });
-      }
+  }//AllowAccess
+
+}//appcompat
 
 
-  }
 
 

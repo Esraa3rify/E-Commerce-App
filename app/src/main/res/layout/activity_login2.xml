@@ -107,19 +107,35 @@
         android:textSize="18sp" />
 
 
-        <TextView
-            android:id="@+id/AdminBanel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/secLoginBtn"
-            android:layout_alignParentEnd="true"
-            android:layout_marginLeft="80dp"
-            android:layout_marginEnd="23dp"
-            android:text="I am An Admin."
-            android:layout_marginTop="15dp"
-            android:textColor="@color/purple_200"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/AdminBanel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/secLoginBtn"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="23dp"
+        android:text="I am An Admin."
+        android:textColor="@color/purple_200"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/NotAdminBanel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/secLoginBtn"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="23dp"
+        android:text="I am Not An Admin."
+        android:textColor="@color/purple_200"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        />
 
 
 

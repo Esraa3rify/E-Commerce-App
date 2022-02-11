@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ECommerce">
         <activity
+            android:name=".AdminCategoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity2"
             android:exported="false" />
         <activity
