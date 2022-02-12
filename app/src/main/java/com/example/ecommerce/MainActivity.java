@@ -7,7 +7,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -64,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
        if(UserPhoneKey !=""&&UserPasKey !=""){
            if(!TextUtils.isEmpty(UserPhoneKey)&& !TextUtils.isEmpty(UserPasKey)){
-               AllowAccess(UserPhoneKey,UserPasKey);
+               allowAccess(UserPhoneKey,UserPasKey);
 
 
                LoadingBar.setTitle("Already logged in");
@@ -75,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
            }
        }
     }
-
-    private void AllowAccess(String Phone, String passWord) {
+    // use camelCase naming convention for functions names
+    private void allowAccess(String Phone, String passWord) {
 
         final DatabaseReference RootRef;
         RootRef= FirebaseDatabase.getInstance().getReference();
