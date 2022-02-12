@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,12 +16,19 @@ import android.widget.Toast;
 
 import com.example.model.User;
 import com.example.prevalent.prevalent;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rey.material.widget.CheckBox;
+import com.rey.material.widget.SnackBar;
 
 import io.paperdb.Paper;
 
@@ -100,31 +108,29 @@ public class LoginActivity2 extends AppCompatActivity {
             LoadingBar.show();
 
 
-            AllowAccessToAccount(passWord, Phone);
+            allowAccessToAccount(passWord, Phone);
         }
 
     }
-  private void AllowAccessToAccount(final String passWord,final String Phone){
+    // camelCase naming convention for function name and arguments too
+  private void allowAccessToAccount(final String passWord, final String phone) {
 
-        //knowing if thr remember me btn is checked or not.
+      //knowing if thr remember me btn is checked or not.
 
-        if(checkBoxV.isChecked()){
-            //store the phone&pass into the android memory
-            Paper.book().write(prevalent.UserPhoneKey,Phone);
-            Paper.book().write(prevalent.UserPasswordKey,passWord);
-        }
+      if (checkBoxV.isChecked()) {
+          //store the phone&pass into the android memory
+          Paper.book().write(prevalent.UserPhoneKey, phone);
+          Paper.book().write(prevalent.UserPasswordKey, passWord);
+      }
 
-      final DatabaseReference RootRef;
-      RootRef= FirebaseDatabase.getInstance().getReference();
-      RootRef.child(parentDBName);
-      RootRef.child(Phone);
-      RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+      FirebaseDatabase database = FirebaseDatabase.getInstance();
+      DatabaseReference ref = database.getReference();
+      ref.child(parentDBName).child(phone).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
           @Override
-          public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-              if (snapshot.exists()) {
-                  User userData = snapshot.getValue(User.class);
-                  if (userData != null && userData.getPass().equals(passWord)) {
+          public void onSuccess(DataSnapshot dataSnapshot) {
+              if (dataSnapshot.exists()){
+                  User user = dataSnapshot.getValue(User.class);
+                  if (user.getPass().equals(passWord)){
 
                       if (parentDBName.equals("Admins")) {
                           Toast.makeText(LoginActivity2.this, "Welcome Admin, you are logged in Successfully...", Toast.LENGTH_SHORT).show();
@@ -139,34 +145,29 @@ public class LoginActivity2 extends AppCompatActivity {
                           LoadingBar.dismiss();
 
                           Intent intent = new Intent(LoginActivity2.this, homeActivity2.class);
-                          prevalent.currentUserOnline = userData;
+                          prevalent.currentUserOnline = user;
                           startActivity(intent);
                       }
-
-                 //ifpass
-                  } else {
+                  }else{
                       LoadingBar.dismiss();
                       Toast.makeText(LoginActivity2.this, "Password is incorrect!", Toast.LENGTH_SHORT).show();
                   }
-                  }//ifsnapshot
-                  else
-                  {
-                      Toast.makeText(LoginActivity2.this, "Account with this phone number " + Phone + "is not valid", Toast.LENGTH_SHORT).show();
-                      LoadingBar.dismiss();
-                  }
 
-
-      } //ondatachange
-
-
-
-          @Override
-          public void onCancelled(@NonNull DatabaseError error) {
+              }else {
+                  Snackbar.make(login.getRootView(),"Not Registered", Snackbar.LENGTH_SHORT).show();
+                  Toast.makeText(getApplicationContext(), "Account with this phone number " + phone + "is not valid", Toast.LENGTH_SHORT).show();
+                  Log.d("TAG", "onSuccess: not registered");
+                  LoadingBar.dismiss();
+              }
 
           }
-
+      }).addOnFailureListener(new OnFailureListener() {
+          @Override
+          public void onFailure(@NonNull Exception e) {
+              Toast.makeText(LoginActivity2.this, "Connection error", Toast.LENGTH_SHORT).show();
+          }
       });
-  }//AllowAccess
+  }
 
 }//appcompat
 
