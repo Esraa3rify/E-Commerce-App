@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.model.User;
+import com.example.model.users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -99,7 +99,7 @@ public class registerActivity extends AppCompatActivity {
                 if(!(snapshot.exists())){
 
 
-                    RootRef.child("users").child(Phone).setValue(new User(name, Phone, passWord))
+                    RootRef.child("users").child(Phone).setValue(new users(name, Phone, passWord))
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
 

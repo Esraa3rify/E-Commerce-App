@@ -134,8 +134,7 @@
         android:textColor="@color/purple_200"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:visibility="invisible"
-        />
+        android:visibility="invisible" />
 
 
 

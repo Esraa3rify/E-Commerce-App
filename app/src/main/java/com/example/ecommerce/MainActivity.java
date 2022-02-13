@@ -7,12 +7,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.model.User;
+import com.example.model.users;
 import com.example.prevalent.prevalent;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -85,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 if (snapshot.exists()) {
-                    User userData = snapshot.getValue(User.class);
+                    users userData = snapshot.getValue(users.class);
                     if (userData != null && userData.getPass().equals(passWord)) {
 
 
@@ -93,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
                         LoadingBar.dismiss();
 
                         Intent intent= new Intent(MainActivity.this,homeActivity2.class);
+                        prevalent.currentUserOnline= userData;
+
                         startActivity(intent);
 
 
