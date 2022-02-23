@@ -44,7 +44,7 @@
         android:text="Already have An Account? Login"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="18sp"></Button>
+        android:textSize="18sp"/> // closing brackets only for parent views
 
 
     <Button
@@ -62,7 +62,7 @@
         android:text="Join Now"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="18sp"></Button>
+        android:textSize="18sp"/>
 
 
 

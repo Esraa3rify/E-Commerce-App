@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.model.users;
+import com.example.model.users;
 import com.example.prevalent.prevalent;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,7 +33,7 @@ public class LoginActivity2 extends AppCompatActivity {
       private   Button login;
        private EditText InputPhoneNumber,InputPassWord;
        private  ProgressDialog LoadingBar;
-       public String parentDBName="users" ;
+       public String parentDBName ="users";
        private CheckBox checkBoxV;
        private TextView AdminLink, NotAdminLink;
 
@@ -56,7 +57,7 @@ public class LoginActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 LoginUser();
-                
+
 
             }
         });
@@ -86,14 +87,14 @@ public class LoginActivity2 extends AppCompatActivity {
 
     private void LoginUser(){
 
-        String password = InputPassWord.getText().toString();
-        String phone = InputPhoneNumber.getText().toString();
+        String passWord = InputPassWord.getText().toString();
+        String Phone = InputPhoneNumber.getText().toString();
 
 
 
-        if (TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(passWord)) {
             Toast.makeText(this, "Please, Write Your Password...", Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.isEmpty(phone)) {
+        } else if (TextUtils.isEmpty(Phone)) {
             Toast.makeText(this, "Please, Write Your Phone Number...", Toast.LENGTH_SHORT).show();
         }
         else {
@@ -104,72 +105,68 @@ public class LoginActivity2 extends AppCompatActivity {
             LoadingBar.show();
 
 
-            AllowAccessToAccount(password, phone);
+            allowAccessToAccount(passWord, Phone);
         }
 
     }
-  private void AllowAccessToAccount(final String password,final String phone){
+
+
+    // camelCase naming convention for function name and arguments too
+    private void allowAccessToAccount(final String passWord, final String phone) {
 
         //knowing if thr remember me btn is checked or not.
 
-        if(checkBoxV.isChecked()){
+        if (checkBoxV.isChecked()) {
             //store the phone&pass into the android memory
-            Paper.book().write(prevalent.UserPhoneKey,phone);
-            Paper.book().write(prevalent.UserPasswordKey,password);
+            Paper.book().write(prevalent.UserPhoneKey, phone);
+            Paper.book().write(prevalent.UserPasswordKey, passWord);
         }
 
-      FirebaseDatabase database = FirebaseDatabase.getInstance();
-      DatabaseReference ref = database.getReference();
-      ref.child(parentDBName).child(phone).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
-          @Override
-          public void onSuccess(DataSnapshot dataSnapshot) {
-              if (dataSnapshot.exists()) {
-                  users user = dataSnapshot.getValue(users.class);
-                  if (user.getPass().equals(password)) {
-                      Log.d("TAG", "onSuccess: not registered");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference();
+        ref.child(parentDBName).child(phone).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+            @Override
+            public void onSuccess(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    users user = dataSnapshot.getValue(users.class);
+                    if (user.getPass().equals(passWord)){
 
-                      if (parentDBName.equals("Admins")) {
-                          Log.d("TAG", "onSuccess: not registered");
+                        if (parentDBName.equals("Admins")) {
+                            Toast.makeText(LoginActivity2.this, "Welcome Admin, you are logged in Successfully...", Toast.LENGTH_SHORT).show();
+                            LoadingBar.dismiss();
 
-                          Toast.makeText(LoginActivity2.this, "Welcome Admin, you are logged in Successfully...", Toast.LENGTH_SHORT).show();
-                          LoadingBar.dismiss();
+                            Intent intent = new Intent(LoginActivity2.this, AdminCategoryActivity.class);
+                            startActivity(intent);
 
-                          Intent intent = new Intent(LoginActivity2.this, AdminCategoryActivity.class);
-                          startActivity(intent);
+                        } else if (parentDBName.equals("users")) {
 
-                      } else if (parentDBName.equals("users")) {
+                            Toast.makeText(LoginActivity2.this, "Logged in successfully!", Toast.LENGTH_SHORT).show();
+                            LoadingBar.dismiss();
 
-                          Toast.makeText(LoginActivity2.this, "Logged in successfully!", Toast.LENGTH_SHORT).show();
-                          LoadingBar.dismiss();
+                            Intent intent = new Intent(LoginActivity2.this, AdminCategoryActivity.class);
+                            prevalent.currentUserOnline = user;
+                            startActivity(intent);
+                        }
+                    }else{
+                        LoadingBar.dismiss();
+                        Toast.makeText(LoginActivity2.this, "Password is incorrect!", Toast.LENGTH_SHORT).show();
+                    }
 
-                          //intent to homeActivity but for test i made it to intent to AdminCategory
+                }else {
+                    Snackbar.make(login.getRootView(),"Not Registered", Snackbar.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Account with this phone number " + phone + "is not valid", Toast.LENGTH_SHORT).show();
+                    Log.d("TAG", "onSuccess: not registered");
+                    LoadingBar.dismiss();
+                }
 
-                          Intent intent = new Intent(LoginActivity2.this, AdminCategoryActivity.class);
-                          prevalent.currentUserOnline = user;
-                          startActivity(intent);
-                      }
-
-              }else {
-                      LoadingBar.dismiss();
-                      Toast.makeText(LoginActivity2.this, "Password is incorrect!", Toast.LENGTH_SHORT).show();
-                  }
-              } else {
-                  Snackbar.make(login.getRootView(), "Not Registered", Snackbar.LENGTH_SHORT).show();
-                  Toast.makeText(getApplicationContext(), "Account with this phone number " + phone + "is not valid", Toast.LENGTH_SHORT).show();
-                  LoadingBar.dismiss();
-              }
-          }
-
-      }).addOnFailureListener(new OnFailureListener() {
-          @Override
-          public void onFailure(@NonNull Exception e) {
-              Toast.makeText(LoginActivity2.this, "Connection error", Toast.LENGTH_SHORT).show();
-          }
-      });
-  }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(LoginActivity2.this, "Connection error", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 }//appcompat
-
-
-
 
