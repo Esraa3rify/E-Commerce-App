@@ -8,7 +8,7 @@
             android:id="@+id/nav_cart"
             android:icon="@drawable/ic_menu_camera"
             android:title="Cart"
-            android:iconTint="@android:color/white"/>
+            android:iconTint="@android:color/background_dark"/>
         <item
             android:id="@+id/nav_orders"
             android:icon="@drawable/orders"
@@ -33,26 +33,26 @@
             android:iconTint="@android:color/white"/>
     </group>
 
-    <item android:title="Communicate">
-    <menu>
+<!--    <item android:title="Communicate">-->
+<!--        <menu>-->
 
-        <item
-            android:id="@+id/nav_share"
-            android:icon="@android:drawable/ic_menu_share"
-            android:title="Share"/>
+<!--            <item-->
+<!--                android:id="@+id/nav_share"-->
+<!--                android:icon="@android:drawable/ic_menu_share"-->
+<!--                android:title="Share"/>-->
 
 
-        <item
-            android:id="@+id/nav_send"
-            android:icon="@android:drawable/ic_menu_send"
-            android:title="Send"/>
+<!--            <item-->
+<!--                android:id="@+id/nav_send"-->
+<!--                android:icon="@android:drawable/ic_menu_send"-->
+<!--                android:title="Send"/>-->
 
-        <item
-            android:id="@+id/nav_manage2"
-            android:icon="@android:drawable/ic_menu_send"
-            android:title="Send"/>
+<!--            <item-->
+<!--                android:id="@+id/nav_manage2"-->
+<!--                android:icon="@android:drawable/ic_menu_send"-->
+<!--                android:title="Send"/>-->
 
-    </menu>
+<!--        </menu>-->
 
-    </item>
+<!--    </item>-->
 </menu>

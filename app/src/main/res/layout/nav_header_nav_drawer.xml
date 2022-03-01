@@ -16,6 +16,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/User_profile_image"
         android:layout_width="96dp"
+        android:layout_gravity="center"
         android:layout_height="96dp"
         android:src="@drawable/profile"
         app:civ_border_width="2dp"
@@ -23,15 +24,17 @@
 
 
 
+
     <TextView
-        android:id="@+id/userProfileName"
+        android:id="@+id/user_profile_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_marginLeft="4dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:text="user name"
+        android:gravity="center"
+        android:layout_marginLeft="4dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 </LinearLayout>
