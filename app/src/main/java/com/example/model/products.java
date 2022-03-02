@@ -2,7 +2,14 @@ package com.example.model;
 
 public class products {
 
-    private String category,date,description,image,pid,pname,price,time;
+    private String category;
+    private String date;
+    private static String description;
+    private static String image;
+    private String pid;
+    private static String pname;
+    private String price;
+    private String time;
 
     public products(){
 
@@ -19,7 +26,7 @@ public class products {
         this.date = date;
         this.time = time;
     }
-    public String getPname() {
+    public static String getPname() {
         return pname;
     }
 
@@ -27,7 +34,7 @@ public class products {
         this.pname = pname;
     }
 
-    public String getDescription() {
+    public static String getDescription() {
         return description;
     }
 
@@ -43,7 +50,7 @@ public class products {
         this.price = price;
     }
 
-    public String getImage() {
+    public static String getImage() {
         return image;
     }
 

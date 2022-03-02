@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         mainLogin=(Button) findViewById(R.id.mainLoginBtn);
         JoinNow=(Button) findViewById(R.id.JoinNowBtn);
         LoadingBar=new ProgressDialog(this);
