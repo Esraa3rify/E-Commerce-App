@@ -85,12 +85,14 @@ public class navDrawer extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_cart, R.id.nav_orders, R.id.nav_categories,R.id.nav_settings)
                 .setOpenableLayout(drawer)
                 .build();
+
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_nav_drawer);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        //NavigationUI.setupWithNavController(navigationView, navController);
+        NavigationUI.setupWithNavController(navigationView, navController);
 
         recyclerViewVar = findViewById(R.id.recycler_menu);
         recyclerViewVar.setHasFixedSize(true);
@@ -114,15 +116,6 @@ public class navDrawer extends AppCompatActivity {
                 new FirebaseRecyclerAdapter<products, productViewHolder>(options) {
 
 
-                    @NonNull
-                    @Override
-                    public productViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.products_items, parent, false);
-                        productViewHolder holder = new productViewHolder(view);
-                        return holder;
-                    }
-
                     @Override
                     protected void onBindViewHolder(@NonNull productViewHolder productViewHolder, int i, @NonNull products products) {
 
@@ -133,22 +126,28 @@ public class navDrawer extends AppCompatActivity {
 
 
                     }
+
+
+                    @NonNull
+                    @Override
+                    public productViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.products_items, parent, false);
+                        productViewHolder holder = new productViewHolder(view);
+                        return holder;
+                    }
+
+
                 };
         recyclerViewVar.setAdapter(adapter);
         adapter.startListening();
-    }
-
-
-
-
-
-    @Override
-    public boolean onSupportNavigateUp () {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_nav_drawer);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
 
     }
+
+
+
+
+
 
 
 
@@ -161,47 +160,15 @@ public class navDrawer extends AppCompatActivity {
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        int id = item.getItemId();
+    public boolean onSupportNavigateUp () {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_nav_drawer);
+        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
+                || super.onSupportNavigateUp();
 
-//        if (id == R.id.action_settings)
-//        {
-//            return true;
-//        }
-
-        return super.onOptionsItemSelected(item);
     }
 
-        @SuppressWarnings("StatementWithEmptyBody")
-        public boolean onNavigationItemSelected (@NonNull MenuItem item)
-        {
-            // Handle navigation view item clicks here.
-            int id = item.getItemId();
 
-            if (id == R.id.nav_home) {
-                Intent intent = new Intent(navDrawer.this, settingsActivity.class);
-                startActivity(intent);
 
-            } else if (id == R.id.nav_orders) {
-
-            } else if (id == R.id.nav_categories) {
-
-            } else if (id == R.id.nav_settings) {
-
-            } else if (id == R.id.nav_logout) {
-                Paper.book().destroy();
-
-                Intent intent = new Intent(navDrawer.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-            }
-
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            drawer.closeDrawer(GravityCompat.START);
-            return true;
-        }
 
 
 

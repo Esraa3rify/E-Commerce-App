@@ -6,9 +6,9 @@
     android:layout_marginTop="20dp"
     android:layout_marginStart="15dp"
     android:layout_marginEnd="15dp"
-    android:id="@+id/product_items"
-
     app:cardElevation="15dp">
+
+
     <RelativeLayout
         android:background="#ffffff"
         android:layout_width="match_parent"

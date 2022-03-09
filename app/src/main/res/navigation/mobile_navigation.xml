@@ -3,23 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_cart">
 
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/nav_cart"
         android:name="com.example.ecommerce.ui.home.HomeFragment"
-        android:label="@string/menu_home"
+        android:label="Cart"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_orders"
         android:name="com.example.ecommerce.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:label="Orders"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_categories"
         android:name="com.example.ecommerce.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
+        android:label="Categories"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:label="@string/action_settings"
+        android:name="com.example.ecommerce.settings.settingsFragment"
+        tools:layout="@layout/settings_fragment" />
+
+
 </navigation>

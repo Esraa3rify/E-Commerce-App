@@ -13,9 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ECommerce">
         <activity
-            android:name=".settingsActivity"
-            android:exported="false" />
-        <activity
             android:name=".navDrawer"
             android:exported="false"
             android:label="@string/title_activity_nav_drawer"
