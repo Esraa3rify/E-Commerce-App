@@ -38,4 +38,6 @@ public class productViewHolder extends RecyclerView.ViewHolder implements View.O
         listener.onClick(v, getAbsoluteAdapterPosition(),false);
 
     }
+
+
 }

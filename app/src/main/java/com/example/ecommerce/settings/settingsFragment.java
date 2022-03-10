@@ -2,6 +2,8 @@ package com.example.ecommerce.settings;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -33,6 +35,12 @@ public class settingsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
         // TODO: Use the ViewModel
+
+//        Activity productItems = getActivity();
+//        if (productItems != null) {
+//            startActivity(new Intent(productItems, settingsFragment.class)); // if needed
+//            productItems.finish();
+//        }
     }
 
 //    @Override

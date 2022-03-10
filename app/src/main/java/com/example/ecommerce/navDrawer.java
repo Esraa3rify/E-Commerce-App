@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -25,6 +27,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ecommerce.databinding.ActivityNavDrawerBinding;
+import com.example.ecommerce.settings.settingsFragment;
 import com.example.model.products;
 import com.example.prevalent.prevalent;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -51,6 +54,18 @@ public class navDrawer extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+// findViewById(R.id.nav_settings).setOnClickListener(new View.OnClickListener() {
+//     @Override
+//     public void onClick(View v) {
+//         getSupportFragmentManager().beginTransaction()
+//                 .replace(R.id.product_items,new settingsFragment()).commit();
+//     }
+// });
+
+
+
 
 
         ProductRef = FirebaseDatabase.getInstance().getReference().child("products");
@@ -100,6 +115,8 @@ public class navDrawer extends AppCompatActivity {
         recyclerViewVar.setLayoutManager(layoutManager);
 
 
+
+
     }
 
     @Override
@@ -110,7 +127,6 @@ public class navDrawer extends AppCompatActivity {
                 new FirebaseRecyclerOptions.Builder<products>()
                         .setQuery(ProductRef, products.class)
                         .build();
-
 
         FirebaseRecyclerAdapter<products, productViewHolder> adapter =
                 new FirebaseRecyclerAdapter<products, productViewHolder>(options) {
@@ -132,7 +148,7 @@ public class navDrawer extends AppCompatActivity {
                     @Override
                     public productViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.products_items, parent, false);
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_product_items, parent, false);
                         productViewHolder holder = new productViewHolder(view);
                         return holder;
                     }
@@ -150,12 +166,13 @@ public class navDrawer extends AppCompatActivity {
 
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.nav_drawer, menu);
         return true;
+
+
     }
 
 
@@ -170,8 +187,6 @@ public class navDrawer extends AppCompatActivity {
 
 
 
-
-
-
 }
+
 
