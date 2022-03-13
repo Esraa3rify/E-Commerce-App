@@ -15,16 +15,16 @@ public class product_items extends AppCompatActivity {
         setContentView(R.layout.activity_product_items);
 
 
-
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container_view_tag,new settingsFragment()).commit();
-
-        findViewById(R.id.nav_settings).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container_view_tag,new settingsFragment()).commit();
-            }
-        });
+//
+//        getSupportFragmentManager().beginTransaction()
+//                .add(R.id.product_items,new settingsFragment()).commit();
+//
+//        findViewById(R.id.nav_settings).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.product_items,new settingsFragment()).commit();
+//            }
+//        });
     }
 }

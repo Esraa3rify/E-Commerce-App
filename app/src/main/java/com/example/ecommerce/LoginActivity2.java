@@ -143,7 +143,7 @@ public class LoginActivity2 extends AppCompatActivity {
                             Toast.makeText(LoginActivity2.this, "Logged in successfully!", Toast.LENGTH_SHORT).show();
                             LoadingBar.dismiss();
 
-                            Intent intent = new Intent(LoginActivity2.this, navDrawer.class);
+                            Intent intent = new Intent(LoginActivity2.this, AdminCategoryActivity.class);
                             prevalent.currentUserOnline = user;
                             startActivity(intent);
                         }

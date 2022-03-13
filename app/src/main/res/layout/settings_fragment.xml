@@ -58,11 +58,10 @@
         android:id="@+id/settingProfileImage"
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:src="@drawable/profile"
         android:layout_below="@+id/appBarSettings"
-        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
-        />
+        android:layout_marginTop="20dp"
+        android:src="@drawable/profile" />
 
     <TextView
         android:id="@+id/profile_image_change_btn"

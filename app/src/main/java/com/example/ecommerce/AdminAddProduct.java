@@ -216,6 +216,7 @@ public class AdminAddProduct extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Uri> task) {
 
                         if(task.isSuccessful()){
+                            Log.d("ATTENTION","ERROR");
                             downloadImageURL=task.getResult().toString();
 
                             Toast.makeText(AdminAddProduct.this, "getting the image uri successfully...", Toast.LENGTH_SHORT).show();
@@ -253,7 +254,7 @@ public class AdminAddProduct extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
 
-                            Intent intent = new Intent(AdminAddProduct.this, AdminCategoryActivity.class);
+                            Intent intent = new Intent(AdminAddProduct.this, navDrawer.class);
                             startActivity(intent);
 
                             loadingBar.dismiss();
