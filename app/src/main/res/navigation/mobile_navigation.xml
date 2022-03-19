@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/nav_cart"
-        android:name="com.example.ecommerce.ui.home.HomeFragment"
+        android:name="com.example.ecommerce.ui.cartFragment"
         android:label="Cart"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_cart" />
 
     <fragment
         android:id="@+id/nav_orders"

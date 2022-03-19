@@ -1,25 +1,14 @@
 package com.example.ecommerce;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 
 import android.view.Menu;
-import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -28,21 +17,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ecommerce.databinding.ActivityNavDrawerBinding;
-import com.example.ecommerce.settings.settingsFragment;
-import com.example.model.products;
+import com.example.ecommerce.ui.cartFragment;
 import com.example.prevalent.prevalent;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.rey.material.widget.FloatingActionButton;
-import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import io.paperdb.Paper;
-import viewHolder.productViewHolder;
 
 public class navDrawer extends AppCompatActivity {
 
@@ -57,19 +38,16 @@ public class navDrawer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-// findViewById(R.id.nav_settings).setOnClickListener(new View.OnClickListener() {
-//     @Override
-//     public void onClick(View v) {
-//         getSupportFragmentManager().beginTransaction()
-//                 .replace(R.id.product_items,new settingsFragment()).commit();
-//     }
-// });
+
+      getSupportFragmentManager().beginTransaction()
+              .replace(R.id.drawer_layoutxml,new cartFragment()).commit();
 
 
 
 
 
-        ProductRef = FirebaseDatabase.getInstance().getReference().child("products");
+
+        //ProductRef = FirebaseDatabase.getInstance().getReference().child("products");
 
         binding = ActivityNavDrawerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -87,7 +65,7 @@ public class navDrawer extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        DrawerLayout drawer = binding.drawerLayout;
+        DrawerLayout drawer = binding.drawerLayoutxml;
         NavigationView navigationView = binding.navView;
 
         //call imageView and textView from the header
@@ -105,15 +83,15 @@ public class navDrawer extends AppCompatActivity {
                 .setOpenableLayout(drawer)
                 .build();
 
+//
+//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_nav_drawer);
+//        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+//        NavigationUI.setupWithNavController(navigationView, navController);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_nav_drawer);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
-
-        recyclerViewVar = findViewById(R.id.recycler_menu);
-        recyclerViewVar.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerViewVar.setLayoutManager(layoutManager);
+//        recyclerViewVar = findViewById(R.id.recycler_menu);
+//        recyclerViewVar.setHasFixedSize(true);
+//        layoutManager = new LinearLayoutManager(this);
+//        recyclerViewVar.setLayoutManager(layoutManager);
 
 
 
@@ -124,48 +102,45 @@ public class navDrawer extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        FirebaseRecyclerOptions<products> options =
-                new FirebaseRecyclerOptions.Builder<products>()
-                        .setQuery(ProductRef, products.class)
-                        .build();
+//  FirebaseRecyclerOptions<products> options =
+//                new FirebaseRecyclerOptions.Builder<products>()
+//                        .setQuery(ProductRef, products.class)
+//                        .build();
+//
+//        FirebaseRecyclerAdapter<products, productViewHolder> adapter =
+//                new FirebaseRecyclerAdapter<products, productViewHolder>(options) {
+//
+//
+//                    @Override
+//                    protected void onBindViewHolder(@NonNull productViewHolder productViewHolder, int i, @NonNull products products) {
+//
+//                        productViewHolder.textProductdescription.setText(products.getDescription());
+//                        productViewHolder.textProductName.setText(products.getPname());
+//                        productViewHolder.textproductPrice.setText("Price =" + products.getPrice() + "$");
+//                        Picasso.get().load(products.getImage()).into(productViewHolder.ProductImageView);
+//
+//
+//                    }
+//
+//
+//                    @NonNull
+//                    @Override
+//                    public productViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//
+//                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_product_items, parent, false);
+//                        productViewHolder holder = new productViewHolder(view);
+//                        return holder;
+//                    }
+//
+//
+//                };
+//        recyclerViewVar.setAdapter(adapter);
+//        adapter.startListening();
+//
+//    }
 
-        FirebaseRecyclerAdapter<products, productViewHolder> adapter =
-                new FirebaseRecyclerAdapter<products, productViewHolder>(options) {
-
-
-                    @Override
-                    protected void onBindViewHolder(@NonNull productViewHolder productViewHolder, int i, @NonNull products products) {
-
-                        productViewHolder.textProductdescription.setText(products.getDescription());
-                        productViewHolder.textProductName.setText(products.getPname());
-                        productViewHolder.textproductPrice.setText("Price =" + products.getPrice() + "$");
-                        Picasso.get().load(products.getImage()).into(productViewHolder.ProductImageView);
-
-
-                    }
-
-
-                    @NonNull
-                    @Override
-                    public productViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_product_items, parent, false);
-                        productViewHolder holder = new productViewHolder(view);
-                        return holder;
-                    }
-
-
-                };
-        recyclerViewVar.setAdapter(adapter);
-        adapter.startListening();
 
     }
-
-
-
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

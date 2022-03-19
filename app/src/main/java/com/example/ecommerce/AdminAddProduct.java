@@ -54,7 +54,7 @@ public class AdminAddProduct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_add_product);
-        categoryName=getIntent().getExtras().get("category").toString();
+        //categoryName=getIntent().getExtras().get("category").toString();
 
         productImagesRef= FirebaseStorage.getInstance().getReference().child("product images");
         //take  reference from DB
