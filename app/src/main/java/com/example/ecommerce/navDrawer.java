@@ -13,15 +13,15 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ecommerce.cart.cartFragment;
 import com.example.ecommerce.databinding.ActivityNavDrawerBinding;
-import com.example.ecommerce.ui.cartFragment;
 import com.example.prevalent.prevalent;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -39,8 +39,7 @@ public class navDrawer extends AppCompatActivity {
 
 
 
-      getSupportFragmentManager().beginTransaction()
-              .replace(R.id.drawer_layoutxml,new cartFragment()).commit();
+
 
 
 
@@ -74,6 +73,9 @@ public class navDrawer extends AppCompatActivity {
         CircleImageView profileImageView = headerView.findViewById(R.id.User_profile_image);
         //change the text according to the logging credentials
         userNameTextView.setText(prevalent.currentUserOnline.getName());
+        //to change the image in the navigation drawer after editing it in the settings layot
+        Picasso.get().load(prevalent.currentUserOnline.getImage()).placeholder(R.drawable.profile).into(profileImageView);
+
 
 
         // Passing each menu ID as a set of Ids because each
@@ -83,10 +85,11 @@ public class navDrawer extends AppCompatActivity {
                 .setOpenableLayout(drawer)
                 .build();
 
-//
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_nav_drawer);
-//        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-//        NavigationUI.setupWithNavController(navigationView, navController);
+      //HumbergerNavDrawer
+
+       NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_nav_drawer);
+       NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+       NavigationUI.setupWithNavController(navigationView, navController);
 
 //        recyclerViewVar = findViewById(R.id.recycler_menu);
 //        recyclerViewVar.setHasFixedSize(true);
@@ -95,12 +98,14 @@ public class navDrawer extends AppCompatActivity {
 
 
 
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+
+
 
 //  FirebaseRecyclerOptions<products> options =
 //                new FirebaseRecyclerOptions.Builder<products>()

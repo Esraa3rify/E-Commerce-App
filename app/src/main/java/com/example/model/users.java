@@ -1,16 +1,38 @@
 package com.example.model;
 
 public class users {
-    private String name, password,phone;
+    private String name, password,phone,image,address;
     public users(){
 
 }
 
-    public users(String name,String phone,String password) {
+
+
+    public users(String name, String phone, String password) {
         this.name = name;
         this.password = password;
         this.phone = phone;
+        this.image=image;
+        this.address=address;
 
+    }
+
+
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getName() {
