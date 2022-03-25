@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/product_detail"
+
+    android:background="#ffffff"
     tools:context=".productdetail">
 
     <ImageView
         android:id="@+id/product_image_details"
         android:layout_width="match_parent"
         android:layout_height="260dp"
-        android:scaleType="centerCrop"
-        />
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/product_name_details"
@@ -56,8 +58,34 @@
         />
 
 
+    <Button
+        android:id="@+id/AddToCArtBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/elegantNumberButton"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/buttons"
+        android:padding="18dp"
+        android:text="Add To Cart"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="23sp" />
 
+    <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+        android:id="@+id/elegantNumberButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/product_price_details"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:elevation="6dp"
+        app:backgroundDrawable="@drawable/buttons"
+        app:finalNumber="10"
+        app:initialNumber="1"
+        app:textSize="16sp">
 
+    </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
 
-
-</RelativeLayout>
+    </RelativeLayout>

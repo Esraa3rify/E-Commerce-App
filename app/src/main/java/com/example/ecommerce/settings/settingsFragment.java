@@ -226,9 +226,9 @@ public class settingsFragment extends Fragment {
 
                                 progressDialog.dismiss();
 
-                                Intent intent = new Intent(getActivity(),settingsFragment.class);
-
                                 Toast.makeText(getActivity(), "Profile info updated successfully.", Toast.LENGTH_SHORT).show();
+
+                                Intent intent = new Intent(getActivity(),settingsFragment.class);
                                 getActivity().onBackPressed();
                             } else {
                                 progressDialog.dismiss();

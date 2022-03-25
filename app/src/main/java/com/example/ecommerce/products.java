@@ -8,7 +8,7 @@ public class products {
     private static String image;
     private String pid;
     private static String pname;
-    private String price;
+    private static String price;
     private String time;
 
     public products(){
@@ -26,7 +26,7 @@ public class products {
         this.date = date;
         this.time = time;
     }
-    public  String getPname() {
+    public static String getPname() {
         return pname;
     }
 
@@ -34,7 +34,7 @@ public class products {
         this.pname = pname;
     }
 
-    public String getDescription() {
+    public static String getDescription() {
         return description;
     }
 
@@ -42,7 +42,7 @@ public class products {
         this.description = description;
     }
 
-    public String getPrice() {
+    public static String getPrice() {
         return price;
     }
 
