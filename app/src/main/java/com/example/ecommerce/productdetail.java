@@ -46,7 +46,7 @@ public class productdetail extends AppCompatActivity {
 
         productId=getIntent().getStringExtra("pid");
 
-       // numberBtn=(ElegantNumberButton) findViewById(R.id.elegantNumberButton);
+        numberBtn=(ElegantNumberButton) findViewById(R.id.elegantNumberButton);
         productImageDetails=(ImageView) findViewById(R.id.product_image_details);
         productPrice=(TextView) findViewById(R.id.product_price_details);
         productDescription=(TextView) findViewById(R.id.product_description_details);
@@ -75,6 +75,7 @@ public class productdetail extends AppCompatActivity {
 
         //create new node
         DatabaseReference CartListRef=FirebaseDatabase.getInstance().getReference().child("Cart List");
+        //create new root->cart list
 
         final HashMap<String,Object>CartMap=new HashMap<>();
         CartMap.put("pid",productId);
@@ -94,7 +95,7 @@ public class productdetail extends AppCompatActivity {
 
                         if (task.isSuccessful()){
 
-                            CartListRef.child("User view").child(prevalent.currentUserOnline.getPhoneNum())
+                            CartListRef.child("Admin view").child(prevalent.currentUserOnline.getPhoneNum())
                                     .child("products").child(productId)
                                     .updateChildren(CartMap)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -104,7 +105,8 @@ public class productdetail extends AppCompatActivity {
                                             if(task.isSuccessful()){
                                                 Toast.makeText(productdetail.this, "Added to cart successfully!", Toast.LENGTH_SHORT).show();
 
-                                                //required to replace from this activity to cartFragment
+                                                Intent intent = new Intent(productdetail.this,navDrawer.class);
+                                                startActivity(intent);
 
 
                                             }

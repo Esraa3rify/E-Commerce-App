@@ -8,8 +8,9 @@
     <fragment
         android:id="@+id/nav_cart"
         android:name="com.example.ecommerce.cart.cartFragment"
-        android:label="Cart"
+        android:label="Home"
         tools:layout="@layout/fragment_cart" />
+
 
     <fragment
         android:id="@+id/nav_orders"
@@ -28,6 +29,12 @@
         android:label="@string/action_settings"
         android:name="com.example.ecommerce.settings.settingsFragment"
         tools:layout="@layout/settings_fragment" />
+
+    <fragment
+        android:id="@+id/nav_basket"
+        android:name="com.example.ecommerce.Cart2.CartFragmentTheRightOne"
+        android:label="Cart"
+        tools:layout="@layout/fragment_cart_the_right_one" />
 
 
 </navigation>

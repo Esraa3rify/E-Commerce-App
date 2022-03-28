@@ -1,5 +1,6 @@
 package com.example.ecommerce;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -9,12 +10,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ecommerce.Cart2.CartFragmentTheRightOne;
 import com.example.ecommerce.cart.cartFragment;
 import com.example.ecommerce.databinding.ActivityNavDrawerBinding;
 import com.example.prevalent.prevalent;
@@ -25,7 +28,7 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class navDrawer extends AppCompatActivity {
+public class navDrawer extends AppCompatActivity{
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityNavDrawerBinding binding;
@@ -60,8 +63,9 @@ public class navDrawer extends AppCompatActivity {
         binding.appBarNavDrawer.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if(view.getId()==R.id.fab){
+                    getSupportFragmentManager().beginTransaction().replace(R.id.drawer_layoutxml,new CartFragmentTheRightOne()).commit();
+                }
             }
         });
         DrawerLayout drawer = binding.drawerLayoutxml;
@@ -80,7 +84,7 @@ public class navDrawer extends AppCompatActivity {
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_basket,
                 R.id.nav_cart, R.id.nav_orders, R.id.nav_categories,R.id.nav_settings)
                 .setOpenableLayout(drawer)
                 .build();

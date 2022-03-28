@@ -80,7 +80,6 @@ public class cartFragment extends Fragment {
 
         recyclerViewVar=(RecyclerView)view.findViewById(R.id.recyclerViewxml);
         recyclerViewVar.setLayoutManager(new LinearLayoutManager(getContext()));
-
         ProductRef = FirebaseDatabase.getInstance().getReference().child("products");
 
 
