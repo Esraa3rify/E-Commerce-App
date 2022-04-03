@@ -9,9 +9,9 @@
         android:id="@+id/relativeCart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/buttons"
         android:layout_alignParentTop="true"
-        >
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/buttons">
 
         <TextView
             android:id="@+id/totalPriceCart"
@@ -20,16 +20,20 @@
             android:layout_marginTop="10dp"
             android:text="Total Price = "
             android:textAlignment="center"
+
             android:textColor="#ffffff"
             android:textSize="20sp" />
     </RelativeLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
+
         android:id="@+id/cartListRec"
-        android:layout_below="@+id/relativeCart"
-        android:layout_height="match_parent" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relativeCart">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 
     <Button

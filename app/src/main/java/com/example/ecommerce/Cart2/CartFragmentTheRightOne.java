@@ -1,5 +1,10 @@
 package com.example.ecommerce.Cart2;
 
+import static android.content.Intent.getIntent;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,13 +17,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ecommerce.Cart;
 import com.example.ecommerce.CartViewHolder;
+import com.example.ecommerce.ConfirmFinalActivity;
 import com.example.ecommerce.R;
+import com.example.ecommerce.navDrawer;
+import com.example.ecommerce.productdetail;
+import com.example.ecommerce.products;
 import com.example.prevalent.prevalent;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -42,6 +54,10 @@ public class CartFragmentTheRightOne extends Fragment {
     private RecyclerView.LayoutManager LayoutManager;
     private Button NextProcessBtn;
     private TextView txtTotalAmount;
+    private String productId="";
+    private int overtotalPrivce=0;
+    private String totalAmount="";
+
 
     public CartFragmentTheRightOne() {
         // Required empty public constructor
@@ -80,11 +96,30 @@ public class CartFragmentTheRightOne extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_cart_the_right_one, container, false);
 
+
+
+        totalAmount=getActivity().getIntent().getStringExtra("Total Price");
+        productId=getActivity().getIntent().getStringExtra("pid");
+
         recyclerView=(RecyclerView)view.findViewById(R.id.cartListRec);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         NextProcessBtn=(Button)view.findViewById(R.id.nextBtnCart);
         txtTotalAmount=(TextView) view.findViewById(R.id.totalPriceCart);
+
+
+        NextProcessBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                txtTotalAmount.setText("Total Price = "+ String.valueOf(overtotalPrivce));
+                Intent intent = new Intent(getActivity(), ConfirmFinalActivity.class);
+                intent.putExtra("Total Price", String.valueOf(overtotalPrivce));
+                startActivity(intent);
+
+
+            }
+        });
         return view;
     }
 
@@ -97,6 +132,7 @@ public class CartFragmentTheRightOne extends Fragment {
                 new FirebaseRecyclerOptions.Builder<Cart>()
                 .setQuery(CartListRef.child("User view").child(prevalent.currentUserOnline.getPhoneNum()).child("products"),Cart.class)
                 .build();
+
         FirebaseRecyclerAdapter<Cart, CartViewHolder> adapter=
                 new FirebaseRecyclerAdapter<Cart, CartViewHolder>(options) {
                     @Override
@@ -105,16 +141,65 @@ public class CartFragmentTheRightOne extends Fragment {
                         cartViewHolder.txtProductPrice.setText(Cart.getPrice());
                         cartViewHolder.txtProductQuantity.setText(Cart.getQuantity());
 
+                        int OneTypeProductPrice=((Integer.parseInt(Cart.getPrice())))*Integer.parseInt(Cart.getQuantity());
+                        overtotalPrivce=overtotalPrivce+OneTypeProductPrice;
+                        cartViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                CharSequence options[] = new CharSequence[]{
+                                        "Edit",
+                                        "Remove"
+
+
+                                };
+                                AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
+                                builder.setTitle("Cart Options:");
+                                builder.setItems(options, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int i) {
+                                        if(i==0){
+                                            Intent intent = new Intent(getActivity(), productdetail.class);
+                                            intent.putExtra("pid", Cart.getPid());
+                                            startActivity(intent);
+                                        }
+                                        if(i==1){
+                                            CartListRef.child("User View")
+                                            .child(prevalent.currentUserOnline.getPhoneNum())
+                                                    .child("products")
+                                                    .child(Cart.getPid())
+                                                    .removeValue()
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            if(task.isSuccessful()){
+                                                                Toast.makeText(getActivity(), "Item removed successfully...", Toast.LENGTH_SHORT).show();
+                                                                Intent intent = new Intent(getActivity(), navDrawer.class);
+                                                                 startActivity(intent);
+                                                            }
+
+                                                        }
+                                                    });
+                                        }
+
+
+                                    }
+                                });
+
+                                builder.show();
+                            }
+                        });
+
                     }
 
                     @NonNull
                     @Override
                     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-                        View view =LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_items_layout,parent,false);
+                      View view =LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_items_layout,parent,false);
                         CartViewHolder holder=new CartViewHolder(view);
 
-                        return holder;
+                      return holder;
                     }
                 };
         recyclerView.setAdapter(adapter);

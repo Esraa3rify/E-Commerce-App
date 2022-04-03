@@ -1,6 +1,5 @@
 package com.example.ecommerce;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -10,7 +9,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -18,11 +16,9 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ecommerce.Cart2.CartFragmentTheRightOne;
-import com.example.ecommerce.cart.cartFragment;
 import com.example.ecommerce.databinding.ActivityNavDrawerBinding;
 import com.example.prevalent.prevalent;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.squareup.picasso.Picasso;
 
@@ -63,8 +59,10 @@ public class navDrawer extends AppCompatActivity{
         binding.appBarNavDrawer.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(view.getId()==R.id.fab){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.drawer_layoutxml,new CartFragmentTheRightOne()).commit();
+
+                if (view.getId() == R.id.fab) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.drawer_layoutxml, new CartFragmentTheRightOne()).commit();
+
                 }
             }
         });
@@ -84,10 +82,10 @@ public class navDrawer extends AppCompatActivity{
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_basket,
-                R.id.nav_cart, R.id.nav_orders, R.id.nav_categories,R.id.nav_settings)
-                .setOpenableLayout(drawer)
-                .build();
+      mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_basket,
+             R.id.nav_cart, R.id.nav_orders, R.id.nav_categories,R.id.nav_settings)
+             .setOpenableLayout(drawer)
+              .build();
 
       //HumbergerNavDrawer
 
@@ -159,6 +157,7 @@ public class navDrawer extends AppCompatActivity{
 
 
     }
+
 
 
     @Override

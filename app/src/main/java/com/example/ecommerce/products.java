@@ -6,7 +6,7 @@ public class products {
     private String date;
     private static String description;
     private static String image;
-    private String pid;
+    private static String pid;
     private static String pname;
     private static String price;
     private String time;
@@ -66,7 +66,7 @@ public class products {
         this.category = category;
     }
 
-    public String getPid() {
+    public static String getPid() {
         return pid;
     }
 

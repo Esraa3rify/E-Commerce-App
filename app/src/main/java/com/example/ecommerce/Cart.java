@@ -23,7 +23,7 @@ public class Cart {
         this.pname = pname;
     }
 
-    public String getPid() {
+    public static String getPid() {
         return pid;
     }
 
