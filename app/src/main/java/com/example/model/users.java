@@ -1,7 +1,8 @@
 package com.example.model;
 
 public class users {
-    private String name, password,phone,image,address;
+    private String name, password,image,address;
+    private static String phone;
     public users(){
 
 }
@@ -52,7 +53,7 @@ public class users {
     }
 
 
-    public String getPhoneNum() {
+    public static String getPhoneNum() {
 
         return phone;
 

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.ecommerce.cart.cartFragment;
+import com.example.model.users;
 import com.example.prevalent.prevalent;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -44,7 +45,7 @@ public class productdetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_productdetail);
 
-        productId=getIntent().getStringExtra("pid");
+       // productId=getIntent().getStringExtra("pid");
 
         numberBtn=(ElegantNumberButton) findViewById(R.id.elegantNumberButton);
         productImageDetails=(ImageView) findViewById(R.id.product_image_details);
@@ -65,84 +66,90 @@ public class productdetail extends AppCompatActivity {
 
     private void addingToCartList() {
 
-         String   saveCurrentDate, saveCurrentTime;
-        Calendar calendar=Calendar.getInstance();
+        String saveCurrentDate, saveCurrentTime;
+        Calendar calendar = Calendar.getInstance();
         SimpleDateFormat currentData = new SimpleDateFormat("MM dd, yyyy");
-        saveCurrentDate=currentData.format(calendar.getTime());
+        saveCurrentDate = currentData.format(calendar.getTime());
 
         SimpleDateFormat currentTime = new SimpleDateFormat("HH mm:ss a");
-        saveCurrentTime=currentTime.format(calendar.getTime());
+        saveCurrentTime = currentTime.format(calendar.getTime());
 
         //create new node
-        DatabaseReference CartListRef=FirebaseDatabase.getInstance().getReference().child("Cart List");
+        //DatabaseReference CartListRef = FirebaseDatabase.getInstance().getReference().child("Cart List");
         //create new root->cart list
 
-        final HashMap<String,Object>CartMap=new HashMap<>();
-        CartMap.put("pid",productId);
-        CartMap.put("name",productName.getText().toString());
-        CartMap.put("price",productPrice.getText().toString());
-        CartMap.put("date",  saveCurrentDate);
-        CartMap.put("time",  saveCurrentTime);
-        CartMap.put("quantity", numberBtn.getNumber() );
-        CartMap.put("discount", "" );
+        final HashMap<String, Object> CartMap = new HashMap<>();
+        CartMap.put("pid", productId);
+        CartMap.put("name", productName.getText().toString());
+        CartMap.put("price", productPrice.getText().toString());
+        CartMap.put("date", saveCurrentDate);
+        CartMap.put("time", saveCurrentTime);
+        CartMap.put("quantity", numberBtn.getNumber());
+        CartMap.put("discount", "");
 
-        CartListRef.child("User view").child(prevalent.currentUserOnline.getPhoneNum())
-                .child("products").child(productId)
-                .updateChildren(CartMap)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference CartListRef = database.getReference().child("Cart List");
+        try {
+            CartListRef.child("User view").child(users.getPhoneNum())
+                    .child("products").child(productId)
+                    .updateChildren(CartMap)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
 
-                        if (task.isSuccessful()){
+                            if (task.isSuccessful()) {
 
-                            CartListRef.child("Admin view").child(prevalent.currentUserOnline.getPhoneNum())
-                                    .child("products").child(productId)
-                                    .updateChildren(CartMap)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
+                                CartListRef.child("Admin view").child(users.getPhoneNum())
+                                        .child("products").child(productId)
+                                        .updateChildren(CartMap)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
 
-                                            if(task.isSuccessful()){
-                                                Toast.makeText(productdetail.this, "Added to cart successfully!", Toast.LENGTH_SHORT).show();
+                                                if (task.isSuccessful()) {
+                                                    Toast.makeText(productdetail.this, "Added to cart successfully!", Toast.LENGTH_SHORT).show();
 
-                                                Intent intent = new Intent(productdetail.this,navDrawer.class);
-                                                startActivity(intent);
+                                                    Intent intent = new Intent(productdetail.this, navDrawer.class);
+                                                    startActivity(intent);
 
 
+                                                }
                                             }
-                                        }
-                                    });
+                                        });
+
+                            }
 
                         }
-
-                    }
-                });
+                    });
 
 
+        } catch (NullPointerException ignored) {
 
+
+        }
     }
 
-    private void getProductDetails(String productId) {
-        DatabaseReference productRef= FirebaseDatabase.getInstance().getReference().child("products");
-        productRef.child("productId").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
-                {
-                    products product=snapshot.getValue(products.class);
-                    productName.setText(products.getPname());
-                    productPrice.setText(products.getPrice());
-                    productDescription.setText(products.getDescription());
-                    Picasso.get().load(products.getImage()).into(productImageDetails);
+        private void getProductDetails (String productId){
+            DatabaseReference productRef = FirebaseDatabase.getInstance().getReference().child("products");
+            productRef.child("productId").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        products product = snapshot.getValue(products.class);
+                        productName.setText(products.getPname());
+                        productPrice.setText(products.getPrice());
+                        productDescription.setText(products.getDescription());
+                        Picasso.get().load(products.getImage()).into(productImageDetails);
+                    }
+
                 }
 
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
 
-            }
-        });
+
+        }
     }
-
-}
