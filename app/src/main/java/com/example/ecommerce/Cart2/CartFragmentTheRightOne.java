@@ -31,9 +31,13 @@ import com.example.prevalent.prevalent;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,7 +58,7 @@ public class CartFragmentTheRightOne extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager LayoutManager;
     private Button NextProcessBtn;
-    private TextView txtTotalAmount;
+    private TextView txtTotalAmount, txtmsg1;
     private String productId = "";
     private int overtotalPrivce = 0;
     private String totalAmount = "";
@@ -106,6 +110,7 @@ public class CartFragmentTheRightOne extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         NextProcessBtn = (Button) view.findViewById(R.id.nextBtnCart);
         txtTotalAmount = (TextView) view.findViewById(R.id.totalPriceCart);
+        txtmsg1 = (TextView) view.findViewById(R.id.MSG1);
 
 
         NextProcessBtn.setOnClickListener(new View.OnClickListener() {
@@ -126,6 +131,9 @@ public class CartFragmentTheRightOne extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        CheckOrderState();
+
         try {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference CartListRef = database.getReference().child("Cart List");
@@ -210,6 +218,93 @@ public class CartFragmentTheRightOne extends Fragment {
             recyclerView.setAdapter(adapter);
             adapter.startListening();
 
+        } catch (NullPointerException ignored) {
+
+        }
+    }
+
+
+
+
+        //Another way to add data to fb;
+
+
+        // OrdersRef.child("Orders").child(users.getPhoneNum()).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+        //@Override
+        // public void onSuccess(DataSnapshot dataSnapshot) {
+//                    if (dataSnapshot.exists()) {
+//                        String shippingState = dataSnapshot.child("state").getValue().toString();
+//                        String UserName = dataSnapshot.child("name").getValue().toString();
+//
+//                        if (shippingState.equals("shipped")) {
+//                            txtTotalAmount.setText("Dear" + UserName + "\n Order is shipped successfully!");
+//                            recyclerView.setVisibility(View.GONE);
+//                            txtmsg1.setText("Congratulations, Your final order has been shipped successfully.");
+//                            txtmsg1.setVisibility(View.VISIBLE);
+//                            NextProcessBtn.setVisibility(View.GONE);
+//                            Toast.makeText(getActivity(), "You can purchase more products, once you received your first order.", Toast.LENGTH_SHORT).show();
+//
+//                        } else if (shippingState.equals("Not shipped")) {
+//
+//                            txtTotalAmount.setText("Shipping state=Not shipped!");
+//                            recyclerView.setVisibility(View.GONE);
+//
+//                            txtmsg1.setVisibility(View.VISIBLE);
+//                            NextProcessBtn.setVisibility(View.GONE);
+//                            Toast.makeText(getActivity(), "You can purchase more products, once you received your first order.", Toast.LENGTH_SHORT).show();
+//
+//                        }
+//
+//                    }
+
+        // }
+        //  });
+        private void CheckOrderState() {
+
+
+        try {
+
+
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference OrdersRef = database.getReference();
+            OrdersRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(prevalent.currentUserOnline.getPhoneNum());
+
+            OrdersRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    if (snapshot.exists()) {
+                        String shippingState = snapshot.child("state").getValue().toString();
+                        String UserName = snapshot.child("name").getValue().toString();
+
+                        if (shippingState.equals("shipped")) {
+                            txtTotalAmount.setText("Dear" + UserName + "\n Order is shipped successfully!");
+                            recyclerView.setVisibility(View.GONE);
+                            txtmsg1.setText("Congratulations, Your final order has been shipped successfully.");
+                            txtmsg1.setVisibility(View.VISIBLE);
+                            NextProcessBtn.setVisibility(View.GONE);
+                            Toast.makeText(getActivity(), "You can purchase more products, once you received your first order.", Toast.LENGTH_SHORT).show();
+
+                        } else if (shippingState.equals("Not shipped")) {
+
+                            txtTotalAmount.setText("Shipping state=Not shipped!");
+                            recyclerView.setVisibility(View.GONE);
+
+                            txtmsg1.setVisibility(View.VISIBLE);
+                            NextProcessBtn.setVisibility(View.GONE);
+                            Toast.makeText(getActivity(), "You can purchase more products, once you received your first order.", Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         } catch (NullPointerException ignored) {
 
         }
