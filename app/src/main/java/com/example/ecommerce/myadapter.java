@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 
 public class myadapter extends FirebaseRecyclerAdapter<products,myadapter.myViewHolder> {
 
-     Context context;
+    Context context;
 
 
     public myadapter(@NonNull FirebaseRecyclerOptions<products> options) {
@@ -29,9 +29,9 @@ public class myadapter extends FirebaseRecyclerAdapter<products,myadapter.myView
     @NonNull
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.productsinfo,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.productsinfo,parent,false);
 
-       return new myViewHolder(view);
+        return new myViewHolder(view);
     }
 
     public class myViewHolder extends RecyclerView.ViewHolder{

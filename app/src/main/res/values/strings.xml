@@ -14,4 +14,7 @@
     <string name="title_activity_nav_drawer">navDrawer</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search">Search</string>
+    <string name="product_name">Product Name</string>
+    <string name="search2">Search!</string>
 </resources>
