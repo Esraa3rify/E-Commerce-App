@@ -1,71 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
     tools:context=".search">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:background="?attr/selectableItemBackground"
-        android:elevation="5dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        app:cardCornerRadius="5dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/AddToCArtBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/searchEditText"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginRight="40dp"
-                android:background="@drawable/buttons"
-                android:padding="15dp"
-                android:text="Search!"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
-
-
-            <EditText
-                android:id="@+id/searchEditText"
-                android:layout_width="250dp"
-                android:layout_height="50dp"
-                android:background="@color/white"
-
-                android:drawablePadding="15dp"
-
-                android:hint="Search products..."
-                android:paddingLeft="20dp"
-                android:singleLine="true"
-                android:textSize="16sp" />
-
-
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
 
     <RelativeLayout
+        android:id="@+id/r2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/purple_700">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/searchProductsRecyclerView"
-            android:layout_width="match_parent"
+
+        <EditText
+            android:id="@+id/searchProductName"
+            android:layout_width="290dp"
             android:layout_height="wrap_content"
-            android:scrollbars="none" />
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"
+            android:background="@android:color/white"
+            android:hint="@string/product_name"
+            android:textColor="@color/purple_500"
+            android:padding="9dp"
+            android:textColorHint="@color/purple_200"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+        <Button
+            android:id="@+id/searchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toEndOf="@+id/searchProductName"
+            android:background="@color/purple_500"
+            android:padding="9dp"
+            android:text="@string/search2"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
 
     </RelativeLayout>
 
-</LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/r2" />
+
+
+
+
+</RelativeLayout>
+

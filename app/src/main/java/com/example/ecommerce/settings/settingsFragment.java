@@ -18,11 +18,14 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ecommerce.R;
+import com.example.ecommerce.resetPassword;
+import com.example.model.users;
 import com.example.prevalent.prevalent;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -55,6 +58,7 @@ public class settingsFragment extends Fragment {
     private StorageTask uploadTask;
     private StorageReference storageProfilePrictureRef;
     private String checker = "";
+    private Button setSecurityQuestions;
 
     Context thiscontext;
 
@@ -73,6 +77,7 @@ public class settingsFragment extends Fragment {
         fullNameEditText = view. findViewById(R.id.settings_full_name);
         userPhoneEditText =view.findViewById(R.id.settings_phone_number);
         addressEditText = view. findViewById(R.id.settings_address);
+        setSecurityQuestions=view.findViewById(R.id.securityQuestionsBtn);
         profileChangeTextBtn = view. findViewById(R.id.profile_image_change_btn);
         closeTextBtn = view. findViewById(R.id.close_settings_btn);
         saveTextBtn = view. findViewById(R.id.update_account_settings_btn);
@@ -92,6 +97,17 @@ public class settingsFragment extends Fragment {
                 getActivity().onBackPressed();
 
               //Another way-> container.removeView(view);
+
+            }
+        });
+
+        setSecurityQuestions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i=new Intent(getActivity(), resetPassword.class);
+                i.putExtra("check","settings");
+                startActivity(i);
 
             }
         });
@@ -251,7 +267,7 @@ public class settingsFragment extends Fragment {
 
     private void UserInfoDisplay(CircleImageView profileImageView, EditText fullNameEditText, EditText userPhoneEditText, EditText addressEditText) {
 
-        DatabaseReference UserRef= FirebaseDatabase.getInstance().getReference().child("users").child(prevalent.currentUserOnline.getPhoneNum());
+        DatabaseReference UserRef= FirebaseDatabase.getInstance().getReference().child("users").child(users.getPhoneNum());
 
         UserRef.addValueEventListener(new ValueEventListener() {
             @Override

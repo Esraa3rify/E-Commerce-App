@@ -105,12 +105,29 @@
         android:id="@+id/settings_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/inputdesign"
         android:layout_below="@+id/settings_full_name"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/inputdesign"
         android:hint="Address..."
-        android:layout_margin="15dp"
-        android:padding="10dp"
-        />
+        android:padding="10dp" />
+
+    <Button
+        android:id="@+id/securityQuestionsBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/settings_address"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/buttons"
+        android:padding="15dp"
+        android:text="Set security questions!"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 
 </RelativeLayout>
 

@@ -17,4 +17,6 @@
     <string name="search">Search</string>
     <string name="product_name">Product Name</string>
     <string name="search2">Search!</string>
+    <string name="product_not_found">product not found!</string>
+    <string name="where_are_your_parent_me_first_time">Where are your parent me, first time?</string>
 </resources>

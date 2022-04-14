@@ -70,6 +70,8 @@ public class cartFragment extends Fragment {
         }
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -94,9 +96,10 @@ public class cartFragment extends Fragment {
         return view;
     }
 
-    @Override
+   @Override
     public void onStart() {
         super.onStart();
+
         adapter.startListening();
     }
     @Override

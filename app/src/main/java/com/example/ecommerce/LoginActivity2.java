@@ -35,7 +35,7 @@ public class LoginActivity2 extends AppCompatActivity {
        private  ProgressDialog LoadingBar;
        public String parentDBName ="users";
        private CheckBox checkBoxV;
-       private TextView AdminLink, NotAdminLink;
+       private TextView AdminLink, NotAdminLink,forgetPassWordLink;
 
 
     @Override
@@ -47,6 +47,7 @@ public class LoginActivity2 extends AppCompatActivity {
         InputPassWord=findViewById(R.id.loginPassNum);
         InputPhoneNumber=findViewById(R.id.loginPhoneNum);
         AdminLink= findViewById(R.id.AdminBanel);
+        forgetPassWordLink=findViewById(R.id.ForgetPassWord);
         NotAdminLink= findViewById(R.id.NotAdminBanel);
         LoadingBar=new ProgressDialog(this);
 
@@ -59,6 +60,15 @@ public class LoginActivity2 extends AppCompatActivity {
                 LoginUser();
 
 
+            }
+        });
+
+        forgetPassWordLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(LoginActivity2.this, resetPassword.class);
+                i.putExtra("check","login");
+                startActivity(i);
             }
         });
 

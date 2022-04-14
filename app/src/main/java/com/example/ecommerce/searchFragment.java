@@ -78,19 +78,21 @@ public class searchFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
-      searchBtn = (Button) view.findViewById(R.id.searchButton);
-        inputText=(EditText) view.findViewById(R.id.searchProductName);
-      searchList = (RecyclerView) view.findViewById(R.id.searchList);
-      searchList.setLayoutManager(new LinearLayoutManager(getContext()));
+        searchBtn = (Button) view.findViewById(R.id.searchButton);
+        inputText = (EditText) view.findViewById(R.id.searchProductName);
+        searchList = (RecyclerView) view.findViewById(R.id.searchList);
+        searchList.setLayoutManager(new LinearLayoutManager(getContext()));
 
-      searchBtn.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-              searchInput=inputText.getText().toString();
-              onStart();
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchInput = inputText.getText().toString();
+                onStart();
 
-          }
-      });
+
+
+            }
+        });
 
         return view;
     }
@@ -99,21 +101,38 @@ public class searchFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        DatabaseReference reference= FirebaseDatabase.getInstance().getReference().child("products");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("products");
 
-        FirebaseRecyclerOptions<products>options=new FirebaseRecyclerOptions.Builder<products>()
-                .setQuery(reference.orderByChild("pname").startAt(searchInput),products.class)
+        FirebaseRecyclerOptions<products> options = new FirebaseRecyclerOptions.Builder<products>()
+                .setQuery(reference.orderByChild("pname").startAt(searchInput), products.class)
                 .build();
 
 
-        FirebaseRecyclerAdapter<products,ProductViewHolder>adapter=
+        FirebaseRecyclerAdapter<products, ProductViewHolder> adapter =
                 new FirebaseRecyclerAdapter<products, ProductViewHolder>(options) {
+
+
+
+                    @NonNull
+                    @Override
+                    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.productsinfo, parent, false);
+                        ProductViewHolder holder = new ProductViewHolder(view);
+                        return holder;
+
+                    }
+
+
+
+
                     @Override
                     protected void onBindViewHolder(@NonNull ProductViewHolder productViewHolder, int i, @NonNull products products) {
-                        productViewHolder.txtProductName.setText(com.example.ecommerce.products.getPname());
-                        productViewHolder.txtProductDescription.setText(com.example.ecommerce.products.getDescription());
-                        productViewHolder.txtProductPrice.setText(com.example.ecommerce.products.getPrice());
-                        Picasso.get().load(com.example.ecommerce.products.getImage()).into( productViewHolder. imageView);
+
+                        productViewHolder.txtProductName.setText(products.getPname());
+                        productViewHolder.txtProductDescription.setText(products.getDescription());
+                        productViewHolder.txtProductPrice.setText(products.getPrice());
+                        Picasso.get().load(products.getImage()).into(productViewHolder.imageView);
 
                         productViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -129,18 +148,16 @@ public class searchFragment extends Fragment {
 
                     }
 
-
-
-                    @NonNull
-                    @Override
-                    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-                        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.productsinfo,parent,false);
-                        ProductViewHolder holder=new ProductViewHolder(view);
-                        return holder;
-
-                    }
                 };
+        searchList.setAdapter(adapter);
+        adapter.startListening();
+
+
+
+
+
 
     }
+
+
 }

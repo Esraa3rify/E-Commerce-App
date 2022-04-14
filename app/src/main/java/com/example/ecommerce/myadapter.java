@@ -15,60 +15,69 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.squareup.picasso.Picasso;
 
-public class myadapter extends FirebaseRecyclerAdapter<products,myadapter.myViewHolder> {
+public class myadapter extends FirebaseRecyclerAdapter<products,ProductViewHolder> {
 
     Context context;
+    public RecyclerView searchList;
 
 
     public myadapter(@NonNull FirebaseRecyclerOptions<products> options) {
         super(options);
+
     }
+//
+//    public class myViewHolder extends RecyclerView.ViewHolder{
+//
+//        TextView productName,productDescription,productPrice;
+//        ImageView productImg;
+//
+//        public myViewHolder(@NonNull View itemView) {
+//            super(itemView);
+//
+//            productName=itemView.findViewById(R.id.product_name);
+//            productDescription=itemView.findViewById(R.id.product_description);
+//            productPrice=itemView.findViewById(R.id.product_price);
+//            productImg=itemView.findViewById(R.id.product_image);
+//
+//        }
+//    }
 
 
+        @Override
+        protected void onBindViewHolder (@NonNull ProductViewHolder productViewHolder,int i,
+        @NonNull products products){
 
-    @NonNull
-    @Override
-    public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.productsinfo,parent,false);
+            productViewHolder.txtProductName.setText(products.getPname());
+            productViewHolder.txtProductDescription.setText(products.getDescription());
+            productViewHolder.txtProductPrice.setText(products.getPrice());
+            Picasso.get().load(products.getImage()).into(productViewHolder.imageView);
 
-        return new myViewHolder(view);
-    }
-
-    public class myViewHolder extends RecyclerView.ViewHolder{
-
-        TextView productName,productDescription,productPrice;
-        ImageView productImg;
-
-        public myViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            productName=itemView.findViewById(R.id.product_name);
-            productDescription=itemView.findViewById(R.id.product_description);
-            productPrice=itemView.findViewById(R.id.product_price);
-            productImg=itemView.findViewById(R.id.product_image);
+            productViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //to intent from adapter
+                    //to putExtra in adapter
+                    Intent intent = new Intent(v.getContext(), productdetail.class);
+                    intent.putExtra("pid", products.getPid());
+                    v.getContext().startActivity(intent);
+                }
+            });
 
         }
-    }
 
 
-    @Override
-    protected void onBindViewHolder(@NonNull myViewHolder myViewHolder, int i, @NonNull products products) {
-        myViewHolder.productName.setText(products.getPname());
-        myViewHolder.productDescription.setText(products.getDescription());
-        myViewHolder.productPrice.setText(products.getPrice());
-        Picasso.get().load(products.getImage()).into( myViewHolder.productImg);
+        @NonNull
+        @Override
+        public ProductViewHolder onCreateViewHolder (@NonNull ViewGroup parent,int viewType){
 
-        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //to intent from adapter
-                //to putExtra in adapter
-                Intent intent = new Intent(v.getContext(), productdetail.class);
-                intent.putExtra("pid", products.getPid());
-                v.getContext().startActivity(intent);
-            }
-        });
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.productsinfo, parent, false);
+            ProductViewHolder holder = new ProductViewHolder(view);
+            return holder;
+
+        }
 
 
-    }
+
+
+
 }
