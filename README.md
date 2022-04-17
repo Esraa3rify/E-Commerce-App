@@ -52,6 +52,5 @@ Some screenshots from the app:
 ![96cf3203-71e9-4228-bbe9-b8259f27a089](https://user-images.githubusercontent.com/59229510/163694508-a568dd7a-d48a-4829-b1ef-6087cd57dc49.jpg)
 ![10340f17-beaa-455f-a90e-0463381e97af](https://user-images.githubusercontent.com/59229510/163694513-0b6b60fa-f592-418d-8926-3476277a3ba5.jpg)
 ![5caf548c-b7d1-4a2a-823e-1d83a5ebc6c0 (1)](https://user-images.githubusercontent.com/59229510/163694516-50c53e26-ec4e-4d15-8165-075fb2c07d14.jpg)
-![5caf548c-b7d1-4a2a-823e-1d83a5ebc6c0](https://user-images.githubusercontent.com/59229510/163694521-831f7a1a-bda6-4ce3-91de-fc9d94631331.jpg)
 
 ---------------------------------------------------------------------------------------------------------
