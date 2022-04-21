@@ -1,7 +1,24 @@
 
 # E-Commerce
 
-It is an E-Commerce Android app.
+
+Table of content:
+-------------------------------
+
+-About the app.
+-Features of the app.
+-Futures.
+-Technologies used.
+-Tools used.
+-Libraries used.
+-Screenshots.
+
+--------------------------------------------------------------------------------------------
+
+About the App:
+----------------------------------
+
+It is an E-Commerce Android app allow users to order products.
 
 Features of the app:
 -----------------------------------
@@ -19,6 +36,14 @@ Features of the app:
 6-"Remember me" it is a feature to keep the users loginned in.
 
 ----------------------------------------------------------------------------------------------------
+
+Futures:
+---------------------------------
+
+-Create the Admin part.
+-Make it to support Arabic Language.
+
+---------------------------------------------------------------------------------------------------
 
 Technologies used:
 ---------------------
