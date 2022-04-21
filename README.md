@@ -6,21 +6,27 @@ Table of content:
 -------------------------------
 
 1-About the app.
+
 2-Features of the app.
+
 3-Futures.
+
 4-Technologies used.
+
 5-Tools used.
+
 6-Libraries used.
+
 7-Screenshots.
 
 --------------------------------------------------------------------------------------------
 
-About the App:
+1-About the App:
 ----------------------------------
 
 It is an E-Commerce Android app allow users to order products.
 
-Features of the app:
+2-Features of the app:
 -----------------------------------
 
 1-Allow user and admin to sign up and Login.
@@ -37,41 +43,50 @@ Features of the app:
 
 ----------------------------------------------------------------------------------------------------
 
-Futures:
+3-Futures:
 ---------------------------------
 
 1-Create the Admin part.
+
 2-Make it to support Arabic Language.
 
 ---------------------------------------------------------------------------------------------------
 
-Technologies used:
+4-Technologies used:
 ---------------------
 1-Java
+
 2-Firebase
+
 3-XML 
 
 ----------------------------------------------------------------------------------------------------------
 
-Tools used:
+5-Tools used:
 ---------------------
 1-Android studio
+
 2-AdopeXD
 
 ------------------------------------------------------------------------------------------------------------
 
-Libraries used:
+6-Libraries used:
 --------------------
 1-https://github.com/square/picasso
+
 2-https://github.com/rey5137/material
+
 3-https://github.com/pilgr/Paper
+
 4-https://github.com/ashik94vc/ElegantNumberButton
+
 5-https://github.com/hdodenhof/CircleImageView
+
 6-https://github.com/ArthurHub/Android-Image-Cropper
 
 -----------------------------------------------------------------------------------------------------------
 
-Some screenshots from the app:
+7-Some screenshots from the app:
 -----------------------------------
 ![mockup](https://user-images.githubusercontent.com/59229510/164365454-9a327e87-b842-4bb8-b1ad-f2c60cbe9e19.png)
 
