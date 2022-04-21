@@ -5,13 +5,13 @@
 Table of content:
 -------------------------------
 
-.About the app.
-.Features of the app.
-.Futures.
-.Technologies used.
-.Tools used.
-.Libraries used.
-.Screenshots.
+1-About the app.
+2-Features of the app.
+3-Futures.
+4-Technologies used.
+5-Tools used.
+6-Libraries used.
+7-Screenshots.
 
 --------------------------------------------------------------------------------------------
 
@@ -40,34 +40,34 @@ Features of the app:
 Futures:
 ---------------------------------
 
-.Create the Admin part.
-.Make it to support Arabic Language.
+1-Create the Admin part.
+2-Make it to support Arabic Language.
 
 ---------------------------------------------------------------------------------------------------
 
 Technologies used:
 ---------------------
-.Java
-.Firebase
-.XML 
+1-Java
+2-Firebase
+3-XML 
 
 ----------------------------------------------------------------------------------------------------------
 
 Tools used:
 ---------------------
-.Android studio
-.AdopeXD
+1-Android studio
+2-AdopeXD
 
 ------------------------------------------------------------------------------------------------------------
 
 Libraries used:
 --------------------
-.https://github.com/square/picasso
-.https://github.com/rey5137/material
-.https://github.com/pilgr/Paper
-.https://github.com/ashik94vc/ElegantNumberButton
-.https://github.com/hdodenhof/CircleImageView
-.https://github.com/ArthurHub/Android-Image-Cropper
+1-https://github.com/square/picasso
+2-https://github.com/rey5137/material
+3-https://github.com/pilgr/Paper
+4-https://github.com/ashik94vc/ElegantNumberButton
+5-https://github.com/hdodenhof/CircleImageView
+6-https://github.com/ArthurHub/Android-Image-Cropper
 
 -----------------------------------------------------------------------------------------------------------
 
