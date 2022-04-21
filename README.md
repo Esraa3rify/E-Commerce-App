@@ -48,6 +48,7 @@ Libraries used:
 
 Some screenshots from the app:
 -----------------------------------
-![5caf548c-b7d1-4a2a-823e-1d83a5ebc6c0 (1)](https://user-images.githubusercontent.com/59229510/164365344-c708cc4f-5685-43cf-86d7-91c895bd76e0.jpg)
+![mockup](https://user-images.githubusercontent.com/59229510/164365454-9a327e87-b842-4bb8-b1ad-f2c60cbe9e19.png)
+
 
 ---------------------------------------------------------------------------------------------------------
